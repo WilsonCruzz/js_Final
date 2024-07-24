@@ -2,6 +2,9 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
+//Load User model
+const users = require('./routes/api/users');
+
 //DB config
 const db = require('./config/keys').mongoURI;
 
@@ -13,6 +16,9 @@ mongoose.connect(db)
 app.get('/', (req, res) => {
     res.send('Hello World');
 });
+
+
+app.use('/api/users', users);
 
 const port = process.env.PORT || 5000;
 
