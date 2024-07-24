@@ -1,3 +1,5 @@
+New-Item server.js -ItemType File
+
 MIT License
 
 Copyright (c) 2024 WilsonCruzz
