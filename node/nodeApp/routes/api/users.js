@@ -3,6 +3,8 @@ const express = require('express');
 const User = require('../../models/user');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
 
 
 // $route GET api/users/test
@@ -53,7 +55,14 @@ router.post("/login", (req, res) => {
             bcrypt.compare(password, user.password)
                 .then(isMatch => {
                     if(isMatch){
-                        res.json({msg: "Success"});
+                        const rule = {id: user.id, name: user.name};
+                        jwt.sign(rule, keys.secretOrKey, {expiresIn: 3600}, (err, token) => {
+                            if(err) throw err;
+                            res.json({
+                                success: true,
+                                token: "Bearer " + token
+                            });
+                        });
                     }else{
                         return res.status(400).json({password: "Password incorrect"});
                     }
