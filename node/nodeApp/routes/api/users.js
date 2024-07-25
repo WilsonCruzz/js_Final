@@ -8,12 +8,9 @@ const keys = require('../../config/keys');
 const passport = require('passport');
 
 
-// $route GET api/users/test
-// @desc Tests users route
-// @access Public
-router.get("/test", (req, res) => res.json({ msg: "Users Works" }));
 
-// $route GET api/users/test
+
+// $route GET api/users/register
 // @desc Tests users route
 // @access Public
 router.post("/register", (req, res) => {
@@ -22,7 +19,7 @@ router.post("/register", (req, res) => {
     User.findOne({ email:req.body.email })
         .then((user) => {
             if(user){
-                return res.status(400).json({email: "Email already exists"});
+                return res.status(400).json("Email already exists");
             }else{
                 const newUser = new User({
                     name: req.body.name,
@@ -51,7 +48,7 @@ router.post("/login", (req, res) => {
     User.findOne({email})
         .then(user => {
             if(!user){
-                return res.status(404).json({email: "User not found"});
+                return res.status(404).json( "User not found");
             }
 
             bcrypt.compare(password, user.password)
@@ -66,7 +63,7 @@ router.post("/login", (req, res) => {
                             });
                         });
                     }else{
-                        return res.status(400).json({password: "Password incorrect"});
+                        return res.status(400).json( "Password incorrect");
                     }
                 })
         });
