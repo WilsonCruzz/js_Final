@@ -4,12 +4,16 @@
   "description": "restful api",
   "main": "server.js",
   "scripts": {
+    "client-install": "npm install --prefix nodeAppClient",
+    "client": "npm start --prefix nodeAppClient",
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "WilsonCruz",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^8.2.2",
     "express": "^4.19.2"
   }
 }
